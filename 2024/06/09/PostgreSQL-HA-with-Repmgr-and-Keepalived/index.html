@@ -55,7 +55,7 @@
 <meta property="og:image" content="https://ilosaur.us/images/PostgreSQLHAHLD.png">
 <meta property="og:image" content="https://ilosaur.us/images/PostgreSQLHAPGREWIND.png">
 <meta property="article:published_time" content="2024-06-09T06:43:00.000Z">
-<meta property="article:modified_time" content="2024-06-10T05:06:01.987Z">
+<meta property="article:modified_time" content="2024-06-10T05:32:12.364Z">
 <meta property="article:author" content="muhilhams">
 <meta property="article:tag" content="database">
 <meta property="article:tag" content="postgresql">
@@ -184,18 +184,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="PostgreSQL-HA-with-repmgr-and-keepalived-pg-rewind"><a href="#PostgreSQL-HA-with-repmgr-and-keepalived-pg-rewind" class="headerlink" title="PostgreSQL HA with repmgr and keepalived (pg_rewind)"></a>PostgreSQL HA with repmgr and keepalived (pg_rewind)</h1><h2 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h2><p>PostgreSQL is a powerful, open-source relational database management system (RDBMS) that has earned a reputation for reliability, feature robustness, and performance. It supports a wide range of data types and advanced data handling capabilities, including transactions, foreign keys, views, triggers, and stored procedures. PostgreSQL is designed to handle a variety of workloads, from single-machine applications to web services with many concurrent users.</p>
-<p>High Availability (HA) in PostgreSQL ensures that the database system remains operational and accessible even in the event of hardware or software failures. HA setups typically involve multiple database servers configured in such a way that if the primary server goes down, one of the standby servers can take over with minimal downtime. This is crucial for applications requiring continuous uptime and data reliability.</p>
 <span id="more"></span>
 
-
+<p>High Availability (HA) in PostgreSQL ensures that the database system remains operational and accessible even in the event of hardware or software failures. HA setups typically involve multiple database servers configured in such a way that if the primary server goes down, one of the standby servers can take over with minimal downtime. This is crucial for applications requiring continuous uptime and data reliability.</p>
 <h2 id="PostgreSQL-HA-with-keepalived-and-repmgr"><a href="#PostgreSQL-HA-with-keepalived-and-repmgr" class="headerlink" title="PostgreSQL HA with keepalived and repmgr"></a>PostgreSQL HA with keepalived and repmgr</h2><p>Implementing HA in PostgreSQL can be achieved using various tools and techniques. Two critical components often used are:</p>
 <ul>
 <li><strong>repmgr</strong>: A suite of open-source tools to manage replication and failover within a cluster of PostgreSQL servers.</li>
 <li><strong>keepalived</strong>: A routing software written in C. It provides simple and robust facilities for load balancing and high-availability. keepalived uses the Virtual Router Redundancy Protocol (VRRP) to ensure that a high-availability cluster of PostgreSQL servers can continue to serve clients seamlessly even if the master server fails.</li>
 </ul>
-<h2 id="HLD"><a href="#HLD" class="headerlink" title="HLD"></a>HLD</h2><img src="/images/PostgreSQLHAHLD.png" alt="drawing" width="500"/>
+<h2 id="HLD"><a href="#HLD" class="headerlink" title="HLD"></a>HLD</h2><img src="/images/PostgreSQLHAHLD.png" alt="PostgreSQL HA w/ Repmgr and Keepalived" style="float:left; margin-right:10px;" width="500"/>
 
-<h2 id="Recovery-Scenario"><a href="#Recovery-Scenario" class="headerlink" title="Recovery Scenario"></a>Recovery Scenario</h2><img src="/images/PostgreSQLHAPGREWIND.png" alt="drawing" width="500"/>
+<h2 id="Recovery-Scenario"><a href="#Recovery-Scenario" class="headerlink" title="Recovery Scenario"></a>Recovery Scenario</h2><img src="/images/PostgreSQLHAPGREWIND.png" alt="PostgreSQL HA PG_REWIND " style="float:left; margin-right:10px;" width="500"/>
 
 <p>A common problem in HA setups is the “split-brain” scenario, where two nodes believe they are both the primary, leading to data inconsistency. This can be prevented using <code>pg_rewind</code>, a PostgreSQL tool that synchronizes a failed primary with the new primary, ensuring data consistency before it rejoins as a standby.</p>
 <h2 id="Step-by-Step-Configuration-and-Testing"><a href="#Step-by-Step-Configuration-and-Testing" class="headerlink" title="Step-by-Step Configuration and Testing"></a>Step-by-Step Configuration and Testing</h2><p>This guide walks you through setting up a PostgreSQL HA cluster with repmgr and keepalived, and demonstrates how to test it from an application node.</p>
@@ -364,8 +363,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd -r keepalived_script</span><br><span class="line">keepalived -t -f /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> keepalived</span><br><span class="line">sudo systemctl restart keepalived</span><br><span class="line">sudo systemctl status keepalived</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr show ens3</span><br></pre></td></tr></table></figure>
-<h4 id="Step-8-Verify-the-Setup"><a href="#Step-8-Verify-the-Setup" class="headerlink" title="Step 8: Verify the Setup"></a>Step 8: Verify the Setup</h4><p>Create the <code>check_postgres.sh</code> script to monitor PostgreSQL.<br>Check the status of repmgr:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br></pre></td></tr></table></figure>
+<h4 id="Step-8-Verify-the-Setup"><a href="#Step-8-Verify-the-Setup" class="headerlink" title="Step 8: Verify the Setup"></a>Step 8: Verify the Setup</h4><p>Cluster Status Verification</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres repmgr -f /etc/repmgr/16/repmgr.conf cluster show</span><br><span class="line">ip addr show ens3</span><br></pre></td></tr></table></figure>
 
 <p>Check the status of keepalived:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status keepalived</span><br></pre></td></tr></table></figure>
