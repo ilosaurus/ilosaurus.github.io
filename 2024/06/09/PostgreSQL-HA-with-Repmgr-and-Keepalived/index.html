@@ -55,7 +55,7 @@
 <meta property="og:image" content="https://ilosaur.us/images/PostgreSQLHAHLD.png">
 <meta property="og:image" content="https://ilosaur.us/images/PostgreSQLHAPGREWIND.png">
 <meta property="article:published_time" content="2024-06-09T06:43:00.000Z">
-<meta property="article:modified_time" content="2024-06-10T05:32:12.364Z">
+<meta property="article:modified_time" content="2024-06-10T05:40:56.736Z">
 <meta property="article:author" content="muhilhams">
 <meta property="article:tag" content="database">
 <meta property="article:tag" content="postgresql">
@@ -192,11 +192,17 @@
 <li><strong>repmgr</strong>: A suite of open-source tools to manage replication and failover within a cluster of PostgreSQL servers.</li>
 <li><strong>keepalived</strong>: A routing software written in C. It provides simple and robust facilities for load balancing and high-availability. keepalived uses the Virtual Router Redundancy Protocol (VRRP) to ensure that a high-availability cluster of PostgreSQL servers can continue to serve clients seamlessly even if the master server fails.</li>
 </ul>
-<h2 id="HLD"><a href="#HLD" class="headerlink" title="HLD"></a>HLD</h2><img src="/images/PostgreSQLHAHLD.png" alt="PostgreSQL HA w/ Repmgr and Keepalived" style="float:left; margin-right:10px;" width="500"/>
+<h2 id="HLD"><a href="#HLD" class="headerlink" title="HLD"></a>HLD</h2><img src="/images/PostgreSQLHAHLD.png" style="float:left; margin-right:10px;" width="500"/>
 
-<h2 id="Recovery-Scenario"><a href="#Recovery-Scenario" class="headerlink" title="Recovery Scenario"></a>Recovery Scenario</h2><img src="/images/PostgreSQLHAPGREWIND.png" alt="PostgreSQL HA PG_REWIND " style="float:left; margin-right:10px;" width="500"/>
+<h2 id="Recovery-Scenario"><a href="#Recovery-Scenario" class="headerlink" title="Recovery Scenario"></a>Recovery Scenario</h2><img src="/images/PostgreSQLHAPGREWIND.png" style="float:left; margin-right:10px;" width="500"/>
 
-<p>A common problem in HA setups is the “split-brain” scenario, where two nodes believe they are both the primary, leading to data inconsistency. This can be prevented using <code>pg_rewind</code>, a PostgreSQL tool that synchronizes a failed primary with the new primary, ensuring data consistency before it rejoins as a standby.</p>
+
+  
+
+<br>
+<hr>
+A common problem in HA setups is the "split-brain" scenario, where two nodes believe they are both the primary, leading to data inconsistency. This can be prevented using `pg_rewind`, a PostgreSQL tool that synchronizes a failed primary with the new primary, ensuring data consistency before it rejoins as a standby.
+
 <h2 id="Step-by-Step-Configuration-and-Testing"><a href="#Step-by-Step-Configuration-and-Testing" class="headerlink" title="Step-by-Step Configuration and Testing"></a>Step-by-Step Configuration and Testing</h2><p>This guide walks you through setting up a PostgreSQL HA cluster with repmgr and keepalived, and demonstrates how to test it from an application node.</p>
 <h3 id="Cluster-Configuration"><a href="#Cluster-Configuration" class="headerlink" title="Cluster Configuration"></a>Cluster Configuration</h3><h4 id="Step-1-Setup-PostgreSQL-on-all-nodes"><a href="#Step-1-Setup-PostgreSQL-on-all-nodes" class="headerlink" title="Step 1: Setup PostgreSQL on all nodes"></a>Step 1: Setup PostgreSQL on all nodes</h4><h5 id="Execute-on-both-node"><a href="#Execute-on-both-node" class="headerlink" title="Execute on both node"></a>Execute on both node</h5><p>Install PostgreSQL on all nodes (ilham-node1, ilham-node2, and ilham-node3).</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install postgresql postgresql-contrib</span><br></pre></td></tr></table></figure>
