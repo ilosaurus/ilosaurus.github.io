@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ilosaur.us/2024/06/09/PostgreSQL-HA-with-Repmgr-and-Keepalived/</loc>
-    
-    <lastmod>2024-06-10T04:55:59.782Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://ilosaur.us/admin/index.html</loc>
     
     <lastmod>2024-06-09T05:54:06.649Z</lastmod>
