@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Menambahkan Plugin Admin Interface di Hexo | ILOSAUR.US</title>
+  <title>Archives: 2024 | ILOSAUR.US</title>
 
 
 
@@ -45,23 +45,15 @@
   }
   </script>
 
-  <meta name="description" content="Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun Jaredly di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih muda">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Menambahkan Plugin Admin Interface di Hexo">
-<meta property="og:url" content="https://ilosaur.us/2020/04/11/menambahkan-plugin-admin-interface-di-hexo/index.html">
+  <meta name="description" content="Ideas shared, knowledge spread">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ILOSAUR.US">
+<meta property="og:url" content="https://ilosaur.us/archives/2024/index.html">
 <meta property="og:site_name" content="ILOSAUR.US">
-<meta property="og:description" content="Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun Jaredly di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih muda">
+<meta property="og:description" content="Ideas shared, knowledge spread">
 <meta property="og:locale" content="id_ID">
-<meta property="og:image" content="https://ilosaur.us/images/pasted-3.png">
-<meta property="og:image" content="https://ilosaur.us/images/pasted-9.png">
-<meta property="og:image" content="https://ilosaur.us/images/pasted-2.png">
-<meta property="og:image" content="https://ilosaur.us/images/pasted-4.png">
-<meta property="og:image" content="https://ilosaur.us/images/pasted-5.png">
-<meta property="article:published_time" content="2020-04-11T03:18:05.879Z">
-<meta property="article:modified_time" content="2020-04-11T03:18:05.915Z">
 <meta property="article:author" content="muhilhams">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://ilosaur.us/images/pasted-3.png">
 <meta name="twitter:creator" content="@muhilham_s">
   
     <link rel="alternate" href="/atom.xml" title="ILOSAUR.US" type="application/atom+xml">
@@ -107,7 +99,7 @@
 
 
 
-  <body data-spy="scroll" data-target="#toc" data-offset="50">
+  <body>
 
 
   
@@ -157,104 +149,215 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-menambahkan-plugin-admin-interface-di-hexo" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
+          <section id="main">
+  <div class="archives-tags-wrap"><blockquote><span>There are 3 posts in total till now.</span></blockquote>
+
+
+
+
+
+	<!-- 分页显示 -->
+	
+	
+		
+		
+		  
+		  
+		  <section class="archives-wrap">
+		    <div class="archive-year-wrap">
+		      <h1><a href="/archives/2024" class="archive-year">2024</a></h1>
+		    </div>
+		    <div class="archives">
+		
+		<article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+
+      <a href="/2024/06/09/PostgreSQL-HA-with-Repmgr-and-Keepalived/" class="archive-article-date">
+		  <time datetime="2024-06-09T06:43:00.000Z" itemprop="datePublished">Jun 09, 2024</time>
+	  </a>
+      
   
-    <h1 class="thumb" class="article-title" itemprop="name">
-      Menambahkan Plugin Admin Interface di Hexo
+    <h1 class="thumb" itemprop="name">
+      <a class="archive-article-title" href="/2024/06/09/PostgreSQL-HA-with-Repmgr-and-Keepalived/">PostgreSQL HA with Repmgr and Keepalived</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/04/11/menambahkan-plugin-admin-interface-di-hexo/" class="article-date">
-	  <time datetime="2020-04-11T03:18:05.879Z" itemprop="datePublished">April 11, 2020</time>
-	</a>
-
-     
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun <strong><a href="https://github.com/jaredly/hexo-admin"><code>Jaredly</code></a></strong> di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih mudah dan efisien dengan menggunakan browser tanpa harus menggunakan Editor dengen fitur <strong><code>preview markdown</code></strong> dan banyak fitur lainnya seperti <strong><code>deploy konten secara otomatis</code></strong>, <strong><code>membuat kategori baru</code></strong>, <strong><code>membuat halaman baru</code></strong>. </p>
-<span id="more"></span>
-
-<p>Plugin ini terinspirasi dari <strong><code>svbtle</code></strong> dan <strong><code>prose.io</code></strong>. Untuk <code>Hexo</code> versi 2.x dapat menggunakan <code>Hexo Admin</code> versi 0.3.0 dan khusus untuk <code>Hexo</code> versi 3.x ke atas dapat menggunakan <code>Hexo Admin</code> 1.x.</p>
-<p>Plugin <strong>hexo-admin</strong> ini di khususkan untuk editor lokal saja, atau untuk menulis sebuah konten di lokal yang nantinya akan di deploy ke git (hexo deploy) baik menggunakan Github Pages atau Static Server lainnya.</p>
-<p>Lalu bagaimana cara memasang plugin ini?  Sebelumnya, dimulai dari tahap memasang <code>node.js</code>, <code>npm</code>, dan <code>Hexo Site Static Generator</code>.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nodejs npm</span><br><span class="line">npm install -g hexo</span><br><span class="line"><span class="built_in">cd</span> ~/</span><br><span class="line">hexo init blogsaya</span><br><span class="line"><span class="built_in">cd</span> blogsaya</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>Setelah itu lanjut dengan memasang plugin <strong><code>hexo-admin</code></strong>  </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br><span class="line">hexo server -d</span><br></pre></td></tr></table></figure>
-
-<p>Untuk verifikasi dan akses <strong><code>hexo-admin</code></strong> defaultnya dapat mengakses <strong><a href="http://localhost:4000/admin/"><code>http://localhost:4000/admin/</code></a></strong> .  Kemudian untuk mengaktifkan autentikasi ke <strong><code>hexo-admin</code></strong> dengan menambah beberapa baris script di file <strong><code>_config.yml</code></strong> yang dapat di generate secara otomatis di menu<br> <strong><code>Settings -&gt; Setup authentification here</code></strong>.  </p>
-<p>Seperti ilustrasi di bawah ini.  </p>
-<img src="/images/pasted-3.png" alt="Hexo Admin Logo" title="Hexo Admin Logo" width="100%">   
-  
-<img src="/images/pasted-9.png" alt="Hexo Admin Logo" title="Hexo Admin Logo" width="100%"> 
-
-<p>potongan file <strong><code>_config.yml</code></strong> bagian autentikasi  </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">. . . . .</span><br><span class="line"><span class="comment"># hexo-admin authentification</span></span><br><span class="line">admin:</span><br><span class="line">  username: username</span><br><span class="line">  password_hash: $2a$10<span class="variable">$L</span>.XAIqIWgTc5S1zpvV3MEu7/rH34p4Is/nq824smv8EZ3lIPCp1su</span><br><span class="line">  secret: my super secret phrase</span><br><span class="line">. . . . .</span><br></pre></td></tr></table></figure>
-
-<p>Beberapa ilustrasi <strong><code>hexo-admin</code></strong>  :<br><img src="/images/pasted-2.png" alt="Halaman manajemen konten tulisan hexo admin" title="Halaman konten hexo-admin" width="100%">  </p>
-<img src="/images/pasted-4.png" alt="Halaman Manajemen Kategori Konten" title="Halaman Manajemen Kategori Konten" width="100%">  
-  
-<img src="/images/pasted-5.png" alt="Fitur Deploy Otomatis" title="Fitur Deploy Otomatis" width="100%">  
-
-<p>Untuk fitur deploy otomatis dapat merujuk ke <strong><code>issue</code></strong> <strong><a href="https://github.com/jaredly/hexo-admin/issues/143"><code>Deploy Command Issue</code></a></strong> .</p>
-<p>Sekian, semoga bermanfaat!  </p>
-<p>MIS</p>
-<hr>
-<p>**<a href="https://hexo.io/"><code>https://hexo.io/</code></a>**<br><strong><a href="https://github.com/jaredly/hexo-admin"><code>https://github.com/jaredly/hexo-admin/</code></a></strong></p>
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-
-      
-      
-    </footer>
-    <hr class="entry-footer-hr">
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/04/12/efk-stack-deploy-efk-stack/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          EFK Stack - Deploying EFK Stack (Part1)
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-  
 </article>
+	
+	
+		</div></section>
+	
 
-<!-- Table of Contents -->
+	<!-- 页数指示器 -->
+	
 
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
-      <ol class="nav">None</ol>
-    
-    </div>
-  </aside>
+
+
 </section>
+          <aside id="sidebar">
+  
+    <div style="margin: 20px 0;">
+	<div id="search-form-wrap">
+
+    <form class="search-form">
+        <label style="width: 72%;">
+            <span class="screen-reader-text">Search for:</span>
+            <input type="search" class="search-field" style="height: 30px; width: 100%;" placeholder=" Search…" value="" name="s" title="Search for:">
+        </label>
+        <input type="submit" class="search-form-submit" value="Search">
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+</div>
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Connect With Us</h3>
+    <div class="widget widget_athemes_social_icons">
+
+    	<ul class="clearfix widget-social-icons">   
+    	
+   			 <li><a href="https://github.com/ilosaurus" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li>  
+				 
+   		
+   			 <li><a href="https://gitlab.com/ilosaurus" title="Gitlab"><i class="fa fa-gitlab" aria-hidden="true"></i></a></li>  
+				 
+   		
+   			 <li><a href="https://www.linkedin.com/in/muhammadilhamsyarifuddin/" title="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>  
+				 
+   		
+   			 <li><a href="https://twitter.com/MuhIlham_S" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>  
+				 
+   		
+   			 <li><a href="https://www.facebook.com/muhilhams" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>  
+				 
+   		
+   			 <li><a href="https://www.instagram.com/muhammadilhamsyarifuddin/" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>  
+				 
+   		
+   		</ul>
+
+
+
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget_athemes_tabs">
+    <ul id="widget-tab" class="clearfix widget-tab-nav">
+      <li class="active"><a>Recent Posts</a></li>
+    </ul>
+    <div class="widget">
+      <ul>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
+              <h6 style="margin: 0;"><a href="/2024/06/09/PostgreSQL-HA-with-Repmgr-and-Keepalived/">PostgreSQL HA with Repmgr and Keepalived</a></h6>
+              <span>Juni 9, 2024</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
+              <h6 style="margin: 0;"><a href="/2020/04/13/efk-stack-fluentd-parsing/">EFK Stack - Parsing Log with Fluentd</a></h6>
+              <span>April 13, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
+              <h6 style="margin: 0;"><a href="/2020/04/12/efk-stack-deploy-efk-stack/">EFK Stack - Deploying EFK Stack (Part1)</a></h6>
+              <span>April 12, 2020</span>
+            </div>
+
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/logging/">logging</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/database/" style="font-size: 10px;">database</a> <a href="/tags/efk/" style="font-size: 20px;">efk</a> <a href="/tags/elasticsearch/" style="font-size: 20px;">elasticsearch</a> <a href="/tags/fluentd/" style="font-size: 20px;">fluentd</a> <a href="/tags/keepalived/" style="font-size: 10px;">keepalived</a> <a href="/tags/logging/" style="font-size: 20px;">logging</a> <a href="/tags/parsing/" style="font-size: 10px;">parsing</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/replication/" style="font-size: 10px;">replication</a> <a href="/tags/repmgr/" style="font-size: 10px;">repmgr</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">Juni 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
         
       </div>
 
