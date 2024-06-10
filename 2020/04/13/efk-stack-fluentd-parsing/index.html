@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  
+  <title>EFK Stack - Parsing Log with Fluentd | ILOSAUR.US</title>
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="efk,elasticsearch,logging,fluentd,fluent parsing,log parsing,multiline parsing,grok" />
+  
+  
+    <meta name="google-site-verification" content="oAfxaqK8OxPyKzzeOVUBOT0LwzkHXoXz9OPISmcucsA" />
+  
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104529904-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-104529904-3');
+</script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "Muhammad Ilham Syarifuddin",
+    "alternateName": "ilosaurus",
+    "url": "https://ilosaur.us",
+    "image": "",
+    "sameAs": [
+      "https://www.facebook.com/muhilhams",
+      "https://twitter.com/MuhIlham_S",
+      "https://www.instagram.com/muhammadilhamsyarifuddin/",
+      "https://www.linkedin.com/in/muhammadilhamsyarifuddin/",
+      "https://github.com/ilosaurus"
+    ],
+    "jobTitle": "SysOps Engineer"  
+  }
+  </script>
+
+  <meta name="description" content="In this session I will share about something that is quite important in the production environment, namely logging. Logs help us in analyzing and identifying the conditions of an application.   The ch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EFK Stack - Parsing Log with Fluentd">
+<meta property="og:url" content="https://ilosaur.us/2020/04/13/efk-stack-fluentd-parsing/index.html">
+<meta property="og:site_name" content="ILOSAUR.US">
+<meta property="og:description" content="In this session I will share about something that is quite important in the production environment, namely logging. Logs help us in analyzing and identifying the conditions of an application.   The ch">
+<meta property="og:locale" content="id_ID">
+<meta property="article:published_time" content="2020-04-13T09:03:28.084Z">
+<meta property="article:modified_time" content="2020-04-13T09:03:28.092Z">
+<meta property="article:author" content="muhilhams">
+<meta property="article:tag" content="efk">
+<meta property="article:tag" content="elasticsearch">
+<meta property="article:tag" content="logging">
+<meta property="article:tag" content="fluentd">
+<meta property="article:tag" content="parsing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@muhilham_s">
+  
+    <link rel="alternate" href="/atom.xml" title="ILOSAUR.US" type="application/atom+xml">
+  
+  <meta name="twitter:site" content="@muhilham_sl">
+<meta property="og:type" content="website"/>
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff"/>
+<meta name="author" content="Muhammad Ilham Syarifuddin">
+<meta name="format-detection" content="telephone=no"/>
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"  type="text/css">
+  
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}
+  </style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="ILOSAUR.US" rel="home"> ILOSAUR.US </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Ideas shared, knowledge spread</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">beranda</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">arsip</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">kategori</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">tentang</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-efk-stack-fluentd-parsing" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      EFK Stack - Parsing Log with Fluentd
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/13/efk-stack-fluentd-parsing/" class="article-date">
+	  <time datetime="2020-04-13T09:03:28.084Z" itemprop="datePublished">April 13, 2020</time>
+	</a>
+
+     
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In this session I will share about something that is quite important in the production environment, namely logging. Logs help us in analyzing and identifying the conditions of an application.  </p>
+<p>The challenge is when we try to identify logs in each application on a different server or location that effort or spend a lot of time. The solution is by applying a Log Server so that the log in each application can be centralized.  </p>
+<span id="more"></span>
+
+<p>The next challenge is how the centralized log is Human readable or can be identified more easily by humans to provide stunning insight or summary. One of them is by parsing raw logs into smaller pieces.  </p>
+<p>In this session I will share how to :</p>
+<ul>
+<li>Parsing simple raw log</li>
+<li>Parsing json raw log</li>
+<li>Parsing raw log xml</li>
+<li>Parsing multiline log</li>
+</ul>
+<p>Then the stack is used :</p>
+<ul>
+<li>CentOS 8 as Operating System.</li>
+<li>Elasticsearch as log storage.  </li>
+<li>Fluentd as a log aggregation, parser, and agent.  </li>
+<li>Kibana as a visualize tool integrated with Elasticsearch.</li>
+</ul>
+<p>For details on the EFK stack deploying process, please read the following url <a href="https://ilosaur.us/2020/04/11/efk-stack-deploy-efk-stack/">https://ilosaur.us/2020/04/11/efk-stack-deploy-efk-stack/</a> To do a parsing log on fluentd, I use the parser plugin provided by fluentd, including regexp, apache2, apache_error, nginx, syslog, csv, tsv, ltsv, json, msgpack, multiline, none and third party parser grok.</p>
+<h2 id="Simple-parse-raw-log-using-fluentd-regexp-parser"><a href="#Simple-parse-raw-log-using-fluentd-regexp-parser" class="headerlink" title="Simple parse raw log using fluentd regexp parser."></a>Simple parse raw log using fluentd regexp parser.</h2><p>Lets start running python apps to generate dummy logs.  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import datetime, time, random, string</span><br><span class="line"></span><br><span class="line">def randomString(stringLength=10):</span><br><span class="line">    letters = string.ascii_uppercase</span><br><span class="line">    return &#x27;&#x27;.join(random.choice(letters) for i in range(stringLength))</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    time.sleep(20)</span><br><span class="line">    print(datetime.datetime.now().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)+&quot; - SIMPLEAPPS ORDER-&quot;+randomString(14)+&quot; &quot;+str(random.randrange(10,99,1)))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/log/simple</span><br><span class="line">python3 simple-python.py &gt;&gt; /var/log/simple/python-simple.log</span><br><span class="line">```  </span><br><span class="line">And we can tail this log file</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>[root@efk-fluentd simple]# pwd<br>&#x2F;var&#x2F;log&#x2F;simple<br>[root@efk-fluentd simple]# tree<br>.<br>├── python-simple.log<br>├── python-simple.py<br>0 directories, 4 files<br>[root@efk-fluentd simple]# python3 python-simple.py &gt;&gt; &#x2F;var&#x2F;log&#x2F;simple&#x2F;python-simple.log &amp;<br>[1] 8362<br>[root@efk-fluentd simple]# tail -f &#x2F;var&#x2F;log&#x2F;simple&#x2F;python-simple.log<br>2020-04-13 20:39:48 - SIMPLEAPPS ORDER-NNZWQAIAGQCVJM 15<br>2020-04-13 20:40:18 - SIMPLEAPPS ORDER-YTHWQVIKHZUSFE 46<br>2020-04-13 20:40:48 - SIMPLEAPPS ORDER-JWTDMRKLONUDNT 54<br>2020-04-13 20:41:18 - SIMPLEAPPS ORDER-JKDSUVPFLUTPZW 67</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Edit file `/etc/td-agent/td-agent.conf` , add line `@include config.d/*.conf` for directives in separate configuration files.  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>vi &#x2F;etc&#x2F;td-agent&#x2F;td-agent.conf<br>mkdir &#x2F;etc&#x2F;td-agent&#x2F;config.d</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Create config file for parsing string log from file `/var/log/simple/python-simple.log.`  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>vi &#x2F;etc&#x2F;td-agent&#x2F;config.d&#x2F;simple-parsing.conf<br>systemctl restart td-agent<br>systemctl status td-agent</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<source>
+  @type tail
+  @id python_simple
+  <parse>
+    @type regexp
+    expression (?<logtime>[^ ]* [^ ]*) - (?<apps-name>[^ ]*) (?<invoice>[^ ]*) (?<count>[^ ]*) 
+    time_key logtime
+    time_format %Y-%m-%d %H:%M:%S
+    types count:integer
+  </parse>
+  path /var/log/simple/python-simple.log
+  tag simple_parsing
+</source>
+
+<match simple_parsing>
+   @type stdout
+</match>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+#2020-04-13 21:05:49 - SIMPLEAPPS ORDER-EUJPYYAYEOJQKW 92
+expression (?<logtime>[^ ]* [^ ]*) - (?<apps-name>[^ ]*) (?<invoice>[^ ]*) (?<count>[^ ]*)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In config file simple-parsing.log using plugin parser regexp to parse raw log from /var/log/simple/python-simple.log. And in match section using output plugin stdout so logs from file /var/log/simple/python-simple.log will be forwarded to /var/log/td-agent/td-agent.log as stdout logs.</span><br><span class="line">Now, just tail file /var/log/td-agent/td-agent. log to check the parsing result.  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+2020-04-13 21:05:49.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-EUJPYYAYEOJQKW","count":92}
+2020-04-13 21:06:19.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-KRCSOOQVYGTKMW","count":68}
+2020-04-13 21:07:19.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-EXKBWKNDKLXGZS","count":61}
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">  </span><br></pre></td></tr></table></figure>
+time:
+2020-04-13 21:05:49.000000000 +0700 simple_parsing:
+record: 
+{
+   "apps-name":"SIMPLEAPPS",
+   "invoice":"ORDER-EUJPYYAYEOJQ",
+   "count":"92"
+}
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## Simple parse raw json log using fluentd json parser.  </span><br><span class="line">In this section, we will parsing raw json log using fluentd json parser and output to stdout. Ok lets start with create generator log using simple python script.  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+import datetime, sys, time, random, string
+
+<p>def randomString(stringLength&#x3D;10):<br>    letters &#x3D; string.ascii_uppercase<br>    return ‘’.join(random.choice(letters) for i in range(stringLength))</p>
+<p>while True:<br>    time.sleep(30)<br>    print(‘{“order_time”:”‘+datetime.datetime.now().strftime(“%Y-%m-%d %H:%M:%S”)+’”,”order_id”:”ORDER-‘+randomString(14)+’”,”order_amount”:”‘+str(random.randrange(10,99,1)*1000)+’”}’, flush&#x3D;True)</p>
+<pre><code>
+</code></pre>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/logging/">logging</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/efk/" rel="tag">efk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/" rel="tag">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fluentd/" rel="tag">fluentd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logging/" rel="tag">logging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/parsing/" rel="tag">parsing</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/06/09/PostgreSQL-HA-with-Repmgr-and-Keepalived/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PostgreSQL HA with Repmgr and Keepalived
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/12/efk-stack-deploy-efk-stack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EFK Stack - Deploying EFK Stack (Part1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Simple-parse-raw-log-using-fluentd-regexp-parser"><span class="nav-number">1.</span> <span class="nav-text">Simple parse raw log using fluentd regexp parser.</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Beranda</a>
+  
+    <a href="/archives" class="mobile-nav-link">Arsip</a>
+  
+    <a href="/categories" class="mobile-nav-link">Kategori</a>
+  
+    <a href="/about" class="mobile-nav-link">Tentang</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2024 | ILOSAURUS |  All Rights Reserved.
+       
+      </div>
+      <div class="site-credit">
+        Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      </div>
+  </div>
+</footer>
+
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    
+    
+    
+</script>
+    
+<!-- <div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

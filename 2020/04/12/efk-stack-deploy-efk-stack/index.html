@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  
+  <title>EFK Stack - Deploying EFK Stack (Part1) | ILOSAUR.US</title>
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="efk,elasticsearch,logging,fluentd" />
+  
+  
+    <meta name="google-site-verification" content="oAfxaqK8OxPyKzzeOVUBOT0LwzkHXoXz9OPISmcucsA" />
+  
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104529904-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-104529904-3');
+</script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "Muhammad Ilham Syarifuddin",
+    "alternateName": "ilosaurus",
+    "url": "https://ilosaur.us",
+    "image": "",
+    "sameAs": [
+      "https://www.facebook.com/muhilhams",
+      "https://twitter.com/MuhIlham_S",
+      "https://www.instagram.com/muhammadilhamsyarifuddin/",
+      "https://www.linkedin.com/in/muhammadilhamsyarifuddin/",
+      "https://github.com/ilosaurus"
+    ],
+    "jobTitle": "SysOps Engineer"  
+  }
+  </script>
+
+  <meta name="description" content="Elasticsearch provides real-time search and analytics for all types of data. Whether you have structured or unstructured text, numerical data, or geospatial data, Elasticsearch can efficiently store">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EFK Stack - Deploying EFK Stack (Part1)">
+<meta property="og:url" content="https://ilosaur.us/2020/04/12/efk-stack-deploy-efk-stack/index.html">
+<meta property="og:site_name" content="ILOSAUR.US">
+<meta property="og:description" content="Elasticsearch provides real-time search and analytics for all types of data. Whether you have structured or unstructured text, numerical data, or geospatial data, Elasticsearch can efficiently store">
+<meta property="og:locale" content="id_ID">
+<meta property="og:image" content="https://ilosaur.us/images/efk-arch.png">
+<meta property="og:image" content="https://ilosaur.us/images/kibana.png">
+<meta property="article:published_time" content="2020-04-12T09:03:28.084Z">
+<meta property="article:modified_time" content="2020-04-12T09:03:28.092Z">
+<meta property="article:author" content="muhilhams">
+<meta property="article:tag" content="efk">
+<meta property="article:tag" content="elasticsearch">
+<meta property="article:tag" content="logging">
+<meta property="article:tag" content="fluentd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ilosaur.us/images/efk-arch.png">
+<meta name="twitter:creator" content="@muhilham_s">
+  
+    <link rel="alternate" href="/atom.xml" title="ILOSAUR.US" type="application/atom+xml">
+  
+  <meta name="twitter:site" content="@muhilham_sl">
+<meta property="og:type" content="website"/>
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff"/>
+<meta name="author" content="Muhammad Ilham Syarifuddin">
+<meta name="format-detection" content="telephone=no"/>
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"  type="text/css">
+  
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}
+  </style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="ILOSAUR.US" rel="home"> ILOSAUR.US </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Ideas shared, knowledge spread</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">beranda</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">arsip</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">kategori</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">tentang</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-efk-stack-deploy-efk-stack" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      EFK Stack - Deploying EFK Stack (Part1)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/12/efk-stack-deploy-efk-stack/" class="article-date">
+	  <time datetime="2020-04-12T09:03:28.084Z" itemprop="datePublished">April 12, 2020</time>
+	</a>
+
+     
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/efk-arch.png" alt="EFK Arch" title="EFK Arch"></p>
+<p>Elasticsearch provides real-time search and analytics for all types of data. Whether you have structured or unstructured text, numerical data, or geospatial data, Elasticsearch can efficiently store and index it in a way that supports fast searches. You can go far beyond simple data retrieval and aggregate information to discover trends and patterns in your data. And as your data and query volume grows, the distributed nature of Elasticsearch enables your deployment to grow seamlessly right along with it. </p>
+<span id="more"></span>
+
+<p>Elasticsearch is commonly deployed alongside Kibana, a powerful data visualization  and dashboard for Elasticsearch. Kibana allows you to explore your Elasticsearch log data through a web interface, and build dashboards and queries to quickly answer questions and gain insight into your Kubernetes applications.</p>
+<h2 id="EFK-Stack"><a href="#EFK-Stack" class="headerlink" title="EFK Stack"></a>EFK Stack</h2><ul>
+<li>Elasticsearch Version 7.6  </li>
+<li>Fluentd Version 2.6</li>
+<li>Kibana Version 7.6</li>
+</ul>
+<h2 id="Install-Elasticsearch"><a href="#Install-Elasticsearch" class="headerlink" title="Install Elasticsearch"></a>Install Elasticsearch</h2><p>Install Elasticsearch on node <code>efk-elastic-kibana</code></p>
+<h3 id="Update-Upgrade-packages"><a href="#Update-Upgrade-packages" class="headerlink" title="Update &amp; Upgrade packages"></a>Update &amp; Upgrade packages</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum -y upgrade</span><br><span class="line">yum -y install epel-release</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set-Timezone"><a href="#Set-Timezone" class="headerlink" title="Set Timezone"></a>Set Timezone</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-timezone Asia/Jakarta</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-Start-Chronyd"><a href="#Install-Start-Chronyd" class="headerlink" title="Install &amp; Start Chronyd"></a>Install &amp; Start Chronyd</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install chrony</span><br><span class="line">systemctl enable --now chronyd</span><br><span class="line">systemctl status chronyd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-OpenJDK"><a href="#Install-OpenJDK" class="headerlink" title="Install OpenJDK"></a>Install OpenJDK</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-repository-Elasticsearch"><a href="#Add-repository-Elasticsearch" class="headerlink" title="Add repository Elasticsearch"></a>Add repository Elasticsearch</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/elasticsearch.repo</span><br><span class="line">[elasticsearch-7.x]</span><br><span class="line">name=Elasticsearch repository for 7.x packages</span><br><span class="line">baseurl=https://artifacts.elastic.co/packages/7.x/yum</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line">enabled=1</span><br><span class="line">autorefresh=1</span><br><span class="line">type=rpm-md</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-Elasticsearch-1"><a href="#Install-Elasticsearch-1" class="headerlink" title="Install Elasticsearch"></a>Install Elasticsearch</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h3 id="Config-Elasticsearch-edit-file-etc-elasticsearch-elasticsearch-yml"><a href="#Config-Elasticsearch-edit-file-etc-elasticsearch-elasticsearch-yml" class="headerlink" title="Config Elasticsearch, edit file /etc/elasticsearch/elasticsearch.yml"></a>Config Elasticsearch, edit file <code>/etc/elasticsearch/elasticsearch.yml</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.original</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/elasticsearch/elasticsearch.yml</span><br><span class="line"></span><br><span class="line">node.name: efk-elastic-kibana</span><br><span class="line">discovery.zen.minimum_master_nodes: 1</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line">http.port: 9200</span><br><span class="line">discovery.seed_hosts: [&quot;127.0.0.1&quot;]</span><br><span class="line">cluster.initial_master_nodes: [&quot;efk-elastic-kibana&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Enable-Start-Elasticsearch-Service"><a href="#Enable-Start-Elasticsearch-Service" class="headerlink" title="Enable &amp; Start Elasticsearch Service"></a>Enable &amp; Start Elasticsearch Service</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl enable --now elasticsearch</span><br><span class="line">systemctl status elasticsearch</span><br></pre></td></tr></table></figure>
+
+<h3 id="Verify-Elasticsearch"><a href="#Verify-Elasticsearch" class="headerlink" title="Verify Elasticsearch"></a>Verify Elasticsearch</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulpn | grep 9200</span><br><span class="line">curl http://127.0.0.1:9200/_cluster/health?pretty</span><br><span class="line">curl http://127.0.0.1:9200/_cat/nodes?v</span><br></pre></td></tr></table></figure>
+
+<p>Example Output </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@efk-elastic-kibana ~]# curl http://10.199.199.123:9200/_cluster/health?pretty</span><br><span class="line">&#123;</span><br><span class="line">  &quot;cluster_name&quot; : &quot;elasticsearch&quot;,</span><br><span class="line">  &quot;status&quot; : &quot;green&quot;,</span><br><span class="line">  &quot;timed_out&quot; : false,</span><br><span class="line">  &quot;number_of_nodes&quot; : 1,</span><br><span class="line">  &quot;number_of_data_nodes&quot; : 1,</span><br><span class="line">  &quot;active_primary_shards&quot; : 6,</span><br><span class="line">  &quot;active_shards&quot; : 6,</span><br><span class="line">  &quot;relocating_shards&quot; : 0,</span><br><span class="line">  &quot;initializing_shards&quot; : 0,</span><br><span class="line">  &quot;unassigned_shards&quot; : 3,</span><br><span class="line">  &quot;delayed_unassigned_shards&quot; : 0,</span><br><span class="line">  &quot;number_of_pending_tasks&quot; : 0,</span><br><span class="line">  &quot;number_of_in_flight_fetch&quot; : 0,</span><br><span class="line">  &quot;task_max_waiting_in_queue_millis&quot; : 0,</span><br><span class="line">  &quot;active_shards_percent_as_number&quot; : 66.66666666666666</span><br><span class="line">&#125;</span><br><span class="line">[root@efk-elastic-kibana ~]# curl http://10.199.199.123:9200/_cat/indices?v</span><br><span class="line">health status index                    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">green  open   .kibana_task_manager_1   c2A6LOb9QQySpcvfY2r_RQ   1   0          2            1     29.8kb         29.8kb</span><br><span class="line">green  open   .apm-agent-configuration EM_3qi6yQOmP9unMRtFJ2g   1   0          0            0       283b           283b</span><br><span class="line">green  open   .kibana_1                bsbGNLfDTdqjALyJwBCkIQ   1   0          9            1     44.7kb         44.7kb</span><br><span class="line">[root@efk-elastic-kibana ~]# </span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-Kibana"><a href="#Install-Kibana" class="headerlink" title="Install Kibana"></a>Install Kibana</h2><p>Install Kibana on node <code>efk-elastic-kibana</code>  </p>
+<h3 id="Install-kibana"><a href="#Install-kibana" class="headerlink" title="Install kibana"></a>Install kibana</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install kibana</span><br></pre></td></tr></table></figure>
+
+<h3 id="Config-Kibana-edit-file-etc-kibana-kibana-yml"><a href="#Config-Kibana-edit-file-etc-kibana-kibana-yml" class="headerlink" title="Config Kibana, edit file /etc/kibana/kibana.yml"></a>Config Kibana, edit file <code>/etc/kibana/kibana.yml</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/kibana/kibana.yml /etc/kibana/kibana.yml.original</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/kibana/kibana.yml</span><br><span class="line"></span><br><span class="line">elasticsearch.hosts: [&quot;http://localhost:9200&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Enable-Start-Kibana"><a href="#Enable-Start-Kibana" class="headerlink" title="Enable &amp; Start Kibana"></a>Enable &amp; Start Kibana</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable --now kibana</span><br><span class="line">systemctl status kibana</span><br></pre></td></tr></table></figure>
+
+<h3 id="Install-nginx-as-reverse-proxy"><a href="#Install-nginx-as-reverse-proxy" class="headerlink" title="Install nginx as reverse proxy"></a>Install nginx as reverse proxy</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install nginx apache2-utils  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Generate-credential-for-basic-http-auth"><a href="#Generate-credential-for-basic-http-auth" class="headerlink" title="Generate credential for basic http auth"></a>Generate credential for basic http auth</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># kibana password</span><br><span class="line">echo &quot;kibana:`openssl passwd -apr1`&quot; | sudo tee -a /etc/nginx/htpasswd.kibana</span><br></pre></td></tr></table></figure>
+
+<h3 id="Config-nginx-edit-file-etc-nginx-nginx-conf"><a href="#Config-nginx-edit-file-etc-nginx-nginx-conf" class="headerlink" title="Config nginx, edit file /etc/nginx/nginx.conf"></a>Config nginx, edit file <code>/etc/nginx/nginx.conf</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">error_log /var/log/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line">include /usr/share/nginx/modules/*.conf;</span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line">    sendfile            on;</span><br><span class="line">    tcp_nopush          on;</span><br><span class="line">    tcp_nodelay         on;</span><br><span class="line">    keepalive_timeout   65;</span><br><span class="line">    types_hash_max_size 2048;</span><br><span class="line">    include             /etc/nginx/mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name _;</span><br><span class="line">        auth_basic &quot;Restricted Access&quot;;</span><br><span class="line">        auth_basic_user_file /etc/nginx/htpasswd.kibana;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">           proxy_pass http://localhost:5601;</span><br><span class="line">            proxy_http_version 1.1;</span><br><span class="line">            proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">            proxy_set_header Connection &#x27;upgrade&#x27;;</span><br><span class="line">            proxy_set_header Host $host;</span><br><span class="line">            proxy_cache_bypass $http_upgrade;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Verify-config-nginx"><a href="#Verify-config-nginx" class="headerlink" title="Verify config nginx"></a>Verify config nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
+
+<h3 id="Enable-Restart-nginx"><a href="#Enable-Restart-nginx" class="headerlink" title="Enable &amp; Restart nginx"></a>Enable &amp; Restart nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable nginx </span><br><span class="line">systemctl restart nginx</span><br><span class="line">systemctl status nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="Access-kibana-via-browser"><a href="#Access-kibana-via-browser" class="headerlink" title="Access kibana via browser"></a>Access kibana via browser</h3><p><img src="/images/kibana.png" alt="Kibana Dashboard" title="Kibana Dashboard"></p>
+<h3 id="Next-chapter"><a href="#Next-chapter" class="headerlink" title="Next chapter :"></a><code>Next chapter :</code></h3><h3 id="Introduction-Install-parsing-simple-log-on-fluentd"><a href="#Introduction-Install-parsing-simple-log-on-fluentd" class="headerlink" title="Introduction, Install &amp; parsing simple log on fluentd"></a><code>Introduction, Install &amp; parsing simple log on fluentd</code></h3><h3 id="Parsing-Apps-Logs-from-Docker-Container"><a href="#Parsing-Apps-Logs-from-Docker-Container" class="headerlink" title="Parsing Apps Logs from Docker Container"></a><code>Parsing Apps Logs from Docker Container</code></h3><h3 id="EFK-Stack-Integration-with-Kubernetes-CLuster"><a href="#EFK-Stack-Integration-with-Kubernetes-CLuster" class="headerlink" title="EFK Stack Integration with Kubernetes CLuster"></a><code>EFK Stack Integration with Kubernetes CLuster</code></h3>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/logging/">logging</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/efk/" rel="tag">efk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/" rel="tag">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fluentd/" rel="tag">fluentd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logging/" rel="tag">logging</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/13/efk-stack-fluentd-parsing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          EFK Stack - Parsing Log with Fluentd
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/11/menambahkan-plugin-admin-interface-di-hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Menambahkan Plugin Admin Interface di Hexo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EFK-Stack"><span class="nav-number">1.</span> <span class="nav-text">EFK Stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Elasticsearch"><span class="nav-number">2.</span> <span class="nav-text">Install Elasticsearch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Update-Upgrade-packages"><span class="nav-number">2.1.</span> <span class="nav-text">Update &amp; Upgrade packages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-Timezone"><span class="nav-number">2.2.</span> <span class="nav-text">Set Timezone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Start-Chronyd"><span class="nav-number">2.3.</span> <span class="nav-text">Install &amp; Start Chronyd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-OpenJDK"><span class="nav-number">2.4.</span> <span class="nav-text">Install OpenJDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Add-repository-Elasticsearch"><span class="nav-number">2.5.</span> <span class="nav-text">Add repository Elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Elasticsearch-1"><span class="nav-number">2.6.</span> <span class="nav-text">Install Elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Config-Elasticsearch-edit-file-etc-elasticsearch-elasticsearch-yml"><span class="nav-number">2.7.</span> <span class="nav-text">Config Elasticsearch, edit file &#x2F;etc&#x2F;elasticsearch&#x2F;elasticsearch.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-Start-Elasticsearch-Service"><span class="nav-number">2.8.</span> <span class="nav-text">Enable &amp; Start Elasticsearch Service</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Verify-Elasticsearch"><span class="nav-number">2.9.</span> <span class="nav-text">Verify Elasticsearch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Kibana"><span class="nav-number">3.</span> <span class="nav-text">Install Kibana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-kibana"><span class="nav-number">3.1.</span> <span class="nav-text">Install kibana</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Config-Kibana-edit-file-etc-kibana-kibana-yml"><span class="nav-number">3.2.</span> <span class="nav-text">Config Kibana, edit file &#x2F;etc&#x2F;kibana&#x2F;kibana.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-Start-Kibana"><span class="nav-number">3.3.</span> <span class="nav-text">Enable &amp; Start Kibana</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-nginx-as-reverse-proxy"><span class="nav-number">3.4.</span> <span class="nav-text">Install nginx as reverse proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-credential-for-basic-http-auth"><span class="nav-number">3.5.</span> <span class="nav-text">Generate credential for basic http auth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Config-nginx-edit-file-etc-nginx-nginx-conf"><span class="nav-number">3.6.</span> <span class="nav-text">Config nginx, edit file &#x2F;etc&#x2F;nginx&#x2F;nginx.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Verify-config-nginx"><span class="nav-number">3.7.</span> <span class="nav-text">Verify config nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-Restart-nginx"><span class="nav-number">3.8.</span> <span class="nav-text">Enable &amp; Restart nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Access-kibana-via-browser"><span class="nav-number">3.9.</span> <span class="nav-text">Access kibana via browser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next-chapter"><span class="nav-number">3.10.</span> <span class="nav-text">Next chapter :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction-Install-parsing-simple-log-on-fluentd"><span class="nav-number">3.11.</span> <span class="nav-text">Introduction, Install &amp; parsing simple log on fluentd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parsing-Apps-Logs-from-Docker-Container"><span class="nav-number">3.12.</span> <span class="nav-text">Parsing Apps Logs from Docker Container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EFK-Stack-Integration-with-Kubernetes-CLuster"><span class="nav-number">3.13.</span> <span class="nav-text">EFK Stack Integration with Kubernetes CLuster</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Beranda</a>
+  
+    <a href="/archives" class="mobile-nav-link">Arsip</a>
+  
+    <a href="/categories" class="mobile-nav-link">Kategori</a>
+  
+    <a href="/about" class="mobile-nav-link">Tentang</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2024 | ILOSAURUS |  All Rights Reserved.
+       
+      </div>
+      <div class="site-credit">
+        Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      </div>
+  </div>
+</footer>
+
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    
+    
+    
+</script>
+    
+<!-- <div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

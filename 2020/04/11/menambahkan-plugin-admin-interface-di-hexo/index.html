@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Menambahkan Plugin Admin Interface di Hexo | ILOSAUR.US</title>
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="tech news, tech websites, tech blog, newtech, bacaan, artikel IT, openstack, gitlab, github, cicd, ansible, jenkins, devops, kubernetes, k8s, k3s, openshift, okd, ceph, graylog, microservices, docker, container, mesos" />
+  
+  
+    <meta name="google-site-verification" content="oAfxaqK8OxPyKzzeOVUBOT0LwzkHXoXz9OPISmcucsA" />
+  
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-104529904-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-104529904-3');
+</script>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "Muhammad Ilham Syarifuddin",
+    "alternateName": "ilosaurus",
+    "url": "https://ilosaur.us",
+    "image": "",
+    "sameAs": [
+      "https://www.facebook.com/muhilhams",
+      "https://twitter.com/MuhIlham_S",
+      "https://www.instagram.com/muhammadilhamsyarifuddin/",
+      "https://www.linkedin.com/in/muhammadilhamsyarifuddin/",
+      "https://github.com/ilosaurus"
+    ],
+    "jobTitle": "SysOps Engineer"  
+  }
+  </script>
+
+  <meta name="description" content="Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun Jaredly di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih muda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Menambahkan Plugin Admin Interface di Hexo">
+<meta property="og:url" content="https://ilosaur.us/2020/04/11/menambahkan-plugin-admin-interface-di-hexo/index.html">
+<meta property="og:site_name" content="ILOSAUR.US">
+<meta property="og:description" content="Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun Jaredly di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih muda">
+<meta property="og:locale" content="id_ID">
+<meta property="og:image" content="https://ilosaur.us/images/pasted-3.png">
+<meta property="og:image" content="https://ilosaur.us/images/pasted-9.png">
+<meta property="og:image" content="https://ilosaur.us/images/pasted-2.png">
+<meta property="og:image" content="https://ilosaur.us/images/pasted-4.png">
+<meta property="og:image" content="https://ilosaur.us/images/pasted-5.png">
+<meta property="article:published_time" content="2020-04-11T03:18:05.879Z">
+<meta property="article:modified_time" content="2020-04-11T03:18:05.915Z">
+<meta property="article:author" content="muhilhams">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ilosaur.us/images/pasted-3.png">
+<meta name="twitter:creator" content="@muhilham_s">
+  
+    <link rel="alternate" href="/atom.xml" title="ILOSAUR.US" type="application/atom+xml">
+  
+  <meta name="twitter:site" content="@muhilham_sl">
+<meta property="og:type" content="website"/>
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff"/>
+<meta name="author" content="Muhammad Ilham Syarifuddin">
+<meta name="format-detection" content="telephone=no"/>
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"  type="text/css">
+  
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}
+  </style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="ILOSAUR.US" rel="home"> ILOSAUR.US </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">Ideas shared, knowledge spread</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">beranda</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">arsip</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">kategori</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">tentang</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-menambahkan-plugin-admin-interface-di-hexo" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Menambahkan Plugin Admin Interface di Hexo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/11/menambahkan-plugin-admin-interface-di-hexo/" class="article-date">
+	  <time datetime="2020-04-11T03:18:05.879Z" itemprop="datePublished">April 11, 2020</time>
+	</a>
+
+     
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>Hexo admin, merupakan project manajemen tulisan berbasis web (Admin Interface) yang di inisiasi oleh akun <strong><a href="https://github.com/jaredly/hexo-admin"><code>Jaredly</code></a></strong> di Github. Project ini membantu blogger dalam proses penulisan konten yang lebih mudah dan efisien dengan menggunakan browser tanpa harus menggunakan Editor dengen fitur <strong><code>preview markdown</code></strong> dan banyak fitur lainnya seperti <strong><code>deploy konten secara otomatis</code></strong>, <strong><code>membuat kategori baru</code></strong>, <strong><code>membuat halaman baru</code></strong>. </p>
+<span id="more"></span>
+
+<p>Plugin ini terinspirasi dari <strong><code>svbtle</code></strong> dan <strong><code>prose.io</code></strong>. Untuk <code>Hexo</code> versi 2.x dapat menggunakan <code>Hexo Admin</code> versi 0.3.0 dan khusus untuk <code>Hexo</code> versi 3.x ke atas dapat menggunakan <code>Hexo Admin</code> 1.x.</p>
+<p>Plugin <strong>hexo-admin</strong> ini di khususkan untuk editor lokal saja, atau untuk menulis sebuah konten di lokal yang nantinya akan di deploy ke git (hexo deploy) baik menggunakan Github Pages atau Static Server lainnya.</p>
+<p>Lalu bagaimana cara memasang plugin ini?  Sebelumnya, dimulai dari tahap memasang <code>node.js</code>, <code>npm</code>, dan <code>Hexo Site Static Generator</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nodejs npm</span><br><span class="line">npm install -g hexo</span><br><span class="line"><span class="built_in">cd</span> ~/</span><br><span class="line">hexo init blogsaya</span><br><span class="line"><span class="built_in">cd</span> blogsaya</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>Setelah itu lanjut dengan memasang plugin <strong><code>hexo-admin</code></strong>  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin</span><br><span class="line">hexo server -d</span><br></pre></td></tr></table></figure>
+
+<p>Untuk verifikasi dan akses <strong><code>hexo-admin</code></strong> defaultnya dapat mengakses <strong><a href="http://localhost:4000/admin/"><code>http://localhost:4000/admin/</code></a></strong> .  Kemudian untuk mengaktifkan autentikasi ke <strong><code>hexo-admin</code></strong> dengan menambah beberapa baris script di file <strong><code>_config.yml</code></strong> yang dapat di generate secara otomatis di menu<br> <strong><code>Settings -&gt; Setup authentification here</code></strong>.  </p>
+<p>Seperti ilustrasi di bawah ini.  </p>
+<img src="/images/pasted-3.png" alt="Hexo Admin Logo" title="Hexo Admin Logo" width="100%">   
+  
+<img src="/images/pasted-9.png" alt="Hexo Admin Logo" title="Hexo Admin Logo" width="100%"> 
+
+<p>potongan file <strong><code>_config.yml</code></strong> bagian autentikasi  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">. . . . .</span><br><span class="line"><span class="comment"># hexo-admin authentification</span></span><br><span class="line">admin:</span><br><span class="line">  username: username</span><br><span class="line">  password_hash: $2a$10<span class="variable">$L</span>.XAIqIWgTc5S1zpvV3MEu7/rH34p4Is/nq824smv8EZ3lIPCp1su</span><br><span class="line">  secret: my super secret phrase</span><br><span class="line">. . . . .</span><br></pre></td></tr></table></figure>
+
+<p>Beberapa ilustrasi <strong><code>hexo-admin</code></strong>  :<br><img src="/images/pasted-2.png" alt="Halaman manajemen konten tulisan hexo admin" title="Halaman konten hexo-admin" width="100%">  </p>
+<img src="/images/pasted-4.png" alt="Halaman Manajemen Kategori Konten" title="Halaman Manajemen Kategori Konten" width="100%">  
+  
+<img src="/images/pasted-5.png" alt="Fitur Deploy Otomatis" title="Fitur Deploy Otomatis" width="100%">  
+
+<p>Untuk fitur deploy otomatis dapat merujuk ke <strong><code>issue</code></strong> <strong><a href="https://github.com/jaredly/hexo-admin/issues/143"><code>Deploy Command Issue</code></a></strong> .</p>
+<p>Sekian, semoga bermanfaat!  </p>
+<p>MIS</p>
+<hr>
+<p>**<a href="https://hexo.io/"><code>https://hexo.io/</code></a>**<br><strong><a href="https://github.com/jaredly/hexo-admin"><code>https://github.com/jaredly/hexo-admin/</code></a></strong></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/blog/">blog</a>
+
+      
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/12/efk-stack-deploy-efk-stack/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          EFK Stack - Deploying EFK Stack (Part1)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav">None</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Beranda</a>
+  
+    <a href="/archives" class="mobile-nav-link">Arsip</a>
+  
+    <a href="/categories" class="mobile-nav-link">Kategori</a>
+  
+    <a href="/about" class="mobile-nav-link">Tentang</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2024 | ILOSAURUS |  All Rights Reserved.
+       
+      </div>
+      <div class="site-credit">
+        Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      </div>
+  </div>
+</footer>
+
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    
+    
+    
+</script>
+    
+<!-- <div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div> -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
