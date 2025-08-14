@@ -1,6 +1,6 @@
 baseURL: "https://ilosaurus.github.io/"
 languageCode: "id-id"
-title: "ilosaurus's Blog"
+title: "Ilosaurus's Blog"
 theme: "PaperMod"
 pagination:
   pagerSize: 5
@@ -51,6 +51,8 @@ params:
   socialIcons:
     - name: "github"
       url: "https://github.com/ilosaurus"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/muhammadilhamsyarifuddin/"
 
   editPost:
     URL: "https://github.com/ilosaurus/ilosaurus.github.io/tree/main/content"
