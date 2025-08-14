@@ -17,3 +17,8 @@
 .first-entry {
     max-width: none;
 }
+
+/* Menghapus min-height pada first-entry */
+.first-entry {
+    min-height: auto;
+}
