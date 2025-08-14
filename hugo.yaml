@@ -27,6 +27,7 @@ params:
     - DevOps
     - Indonesia
   author: "Ilham"
+  copyright: "© 2025 ilosaurus's Blog" # Teks copyright kustom
   DateFormat: "January 2, 2006"
   defaultTheme: "light"
   disableThemeToggle: false
