@@ -6,6 +6,7 @@ backend:
   name: github
   repo: ilosaurus/ilosaurus.github.io # Ganti dengan username/repo Anda
   branch: main # Atau master, sesuaikan dengan branch utama Anda
+  client_id: Ov23liSZve0adb0yjMEX # <-- Tambahkan baris ini
 
 # Lokasi penyimpanan file media (gambar, dll)
 media_folder: "static/uploads"
