@@ -1,0 +1,10 @@
+baseURL = "https://ilosaurus.github.io/"
+languageCode = "id-id"
+title = "ilosaurus's Blog"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "light" # auto, dark, light
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
