@@ -4,6 +4,7 @@ title = "ilosaurus's"
 theme = "PaperMod"
 
 [params]
+  customCSS = ["css/custom.css"]
   mainSections = ["posts"]
   defaultTheme = "light" # auto, dark, light
   ShowShareButtons = true
