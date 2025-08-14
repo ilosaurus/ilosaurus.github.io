@@ -14,7 +14,7 @@ minify:
   disableXML: true
   minifyOutput: true
 
-
+params:
   env: "production"
   description: "coretan coretan atau arsip catatan."
   keywords:
