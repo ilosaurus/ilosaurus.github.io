@@ -4,6 +4,7 @@ title = "ilosaurus's Blog"
 theme = "PaperMod"
 
 [params]
+  mainSections = ["posts"]
   defaultTheme = "light" # auto, dark, light
   ShowShareButtons = true
   ShowReadingTime = true
