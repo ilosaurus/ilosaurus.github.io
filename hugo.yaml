@@ -16,7 +16,7 @@ minify:
 
 params:
   env: "production"
-  description: "Menjelajahi observability modern dengan topik seputar monitoring, logging, dan telemetry pipeline."
+  description: "coretan coretan atau arsip catatan."
   keywords:
     - Observability
     - Monitoring
@@ -26,7 +26,7 @@ params:
     - OpenTelemetry
     - DevOps
     - Indonesia
-  author: "Ilham"
+  author: "ilosaurus"
   copyright: "© 2025 ilosaurus's Blog" # Teks copyright kustom
   DateFormat: "January 2, 2006"
   defaultTheme: "light"
