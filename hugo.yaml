@@ -45,8 +45,8 @@ params:
     - posts
 
   homeInfoParams:
-    Title: "Selamat Datang 👋"
-    Content: "Blog ini membahas seputar observability, monitoring, dan teknologi cloud native. Mari belajar bersama!"
+    Title: "Welcome' 👋"
+    Content: "Kualleangi tallanga na toalia!"
 
   socialIcons:
     - name: "github"
