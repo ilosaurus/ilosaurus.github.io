@@ -9,3 +9,25 @@ theme = "PaperMod"
   ShowShareButtons = true
   ShowReadingTime = true
   ShowCodeCopyButtons = true
+
+[menu]
+  [[menu.main]]
+    identifier = "logging"
+    name = "Logging"
+    url = "/categories/logging/"
+    weight = 10
+  [[menu.main]]
+    identifier = "openstack"
+    name = "OpenStack"
+    url = "/categories/openstack/"
+    weight = 20
+  [[menu.main]]
+    identifier = "container"
+    name = "Container"
+    url = "/categories/container/"
+    weight = 30
+  [[menu.main]]
+    identifier = "monitoring"
+    name = "Monitoring"
+    url = "/categories/monitoring/"
+    weight = 40
