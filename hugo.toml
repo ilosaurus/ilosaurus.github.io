@@ -1,6 +1,6 @@
 baseURL = "https://ilosaurus.github.io/"
 languageCode = "id-id"
-title = "ilosaurus's"
+title = "ilosaurus's Blog"
 theme = "PaperMod"
 
 [params]

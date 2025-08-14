@@ -1,4 +1,4 @@
 ---
-title: "Catatan/Arsip/Atauapalah"
+title: "Selamat Datang di Blog Ilosaurus"
 ---
-## Ilosaurus Blogs
+Ilosaurus Blogs
