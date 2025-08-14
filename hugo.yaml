@@ -1,0 +1,98 @@
+baseURL: "https://ilosaurus.github.io/"
+languageCode: "id-id"
+title: "ilosaurus's Blog"
+theme: "PaperMod"
+paginate: 5
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: "production"
+  description: "Menjelajahi observability modern dengan topik seputar monitoring, logging, dan telemetry pipeline."
+  keywords:
+    - Observability
+    - Monitoring
+    - Logging
+    - Telemetry
+    - Grafana
+    - OpenTelemetry
+    - DevOps
+    - Indonesia
+  author: "Ilham"
+  DateFormat: "January 2, 2006"
+  defaultTheme: "light"
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  
+  mainSections:
+    - posts
+
+  homeInfoParams:
+    Title: "Selamat Datang 👋"
+    Content: "Blog ini membahas seputar observability, monitoring, dan teknologi cloud native. Mari belajar bersama!"
+
+  socialIcons:
+    - name: "github"
+      url: "https://github.com/ilosaurus"
+
+  editPost:
+    URL: "https://github.com/ilosaurus/ilosaurus.github.io/tree/main/content"
+    Text: "Sarankan Perubahan"
+    appendFilePath: true
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10
+    keys:
+      - "title"
+      - "permalink"
+      - "summary"
+      - "content"
+
+menu:
+  main:
+    - identifier: "archives"
+      name: "Archives"
+      url: "/archives/"
+      weight: 5
+    - identifier: "logging"
+      name: "Logging"
+      url: "/categories/logging/"
+      weight: 10
+    - identifier: "openstack"
+      name: "OpenStack"
+      url: "/categories/openstack/"
+      weight: 20
+    - identifier: "container"
+      name: "Container"
+      url: "/categories/container/"
+      weight: 30
+    - identifier: "monitoring"
+      name: "Monitoring"
+      url: "/categories/monitoring/"
+      weight: 40
+
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
