@@ -3,7 +3,7 @@ title: "EFK Stack - Parsing Log with Fluentd"
 date: 2020-04-13T16:03:00+07:00
 draft: false
 categories: ["Logging"]
-tags: ["EFK", "Fluentd", "Logging", "Elasticsearch", "Parsing"]
+tags: ["EFK", "Fluentd", "Elasticsearch", "Parsing"]
 description: "Learn how to parse simple, JSON, XML, and multiline logs using Fluentd within an EFK (Elasticsearch, Fluentd, Kibana) stack to make centralized logs more human-readable and insightful."
 ---
 
@@ -27,7 +27,7 @@ Then the stack is used :
 * Fluentd as a log aggregation, parser, and agent.  
 * Kibana as a visualize tool integrated with Elasticsearch.  
 
-For details on the EFK stack deploying process, please read the following url https://ilosaur.us/2020/04/11/efk-stack-deploy-efk-stack/ To do a parsing log on fluentd, I use the parser plugin provided by fluentd, including regexp, apache2, apache_error, nginx, syslog, csv, tsv, ltsv, json, msgpack, multiline, none and third party parser grok.
+To do a parsing log on fluentd, I use the parser plugin provided by fluentd, including regexp, apache2, apache_error, nginx, syslog, csv, tsv, ltsv, json, msgpack, multiline, none and third party parser grok.
 
 ## Simple parse raw log using fluentd regexp parser.  
 
