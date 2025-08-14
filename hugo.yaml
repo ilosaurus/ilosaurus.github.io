@@ -54,6 +54,13 @@ params:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/muhammadilhamsyarifuddin/"
 
+  assets:
+    favicon: "/icon-skul.png"
+    favicon16x16: "/icon-skul.png"
+    favicon32x32: "/icon-skul.png"
+    apple_touch_icon: "/icon-skul.png"
+    safari_pinned_tab: "/icon-skul.png"
+
   editPost:
     URL: "https://github.com/ilosaurus/ilosaurus.github.io/tree/main/content"
     Text: "Sarankan Perubahan"
