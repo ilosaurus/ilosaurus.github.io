@@ -32,7 +32,8 @@ To do a parsing log on fluentd, I use the parser plugin provided by fluentd, inc
 ## Simple parse raw log using fluentd regexp parser.  
 
 Lets start running python apps to generate dummy logs.  
-```
+
+```python
 import datetime, time, random, string
 
 def randomString(stringLength=10):
@@ -45,13 +46,13 @@ while True:
 
 ```
 
-```
+```bash
 mkdir /var/log/simple
 python3 simple-python.py >> /var/log/simple/python-simple.log
 ```  
 And we can tail this log file
 
-```
+```bash
 [root@efk-fluentd simple]# pwd
 /var/log/simple
 [root@efk-fluentd simple]# tree
@@ -70,20 +71,20 @@ And we can tail this log file
 
 Edit file `/etc/td-agent/td-agent.conf` , add line `@include config.d/*.conf` for directives in separate configuration files.  
 
-```
+```bash
 vi /etc/td-agent/td-agent.conf
 mkdir /etc/td-agent/config.d
 ```
 
 Create config file for parsing string log from file `/var/log/simple/python-simple.log.`  
 
-```
+```bash
 vi /etc/td-agent/config.d/simple-parsing.conf
 systemctl restart td-agent
 systemctl status td-agent
 ```
 
-```
+```conf
 <source>
   @type tail
   @id python_simple
@@ -111,13 +112,13 @@ expression (?<logtime>[^ ]* [^ ]*) - (?<apps-name>[^ ]*) (?<invoice>[^ ]*) (?<co
 In config file simple-parsing.log using plugin parser regexp to parse raw log from /var/log/simple/python-simple.log. And in match section using output plugin stdout so logs from file /var/log/simple/python-simple.log will be forwarded to /var/log/td-agent/td-agent.log as stdout logs.
 Now, just tail file /var/log/td-agent/td-agent. log to check the parsing result.  
 
-```
+```log
 2020-04-13 21:05:49.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-EUJPYYAYEOJQKW","count":92}
 2020-04-13 21:06:19.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-KRCSOOQVYGTKMW","count":68}
 2020-04-13 21:07:19.000000000 +0700 simple_parsing: {"apps-name":"SIMPLEAPPS","invoice":"ORDER-EXKBWKNDKLXGZS","count":61}
 ```
   
-```
+```log
 time:
 2020-04-13 21:05:49.000000000 +0700 simple_parsing:
 record: 
@@ -131,7 +132,7 @@ record:
 ## Simple parse raw json log using fluentd json parser.  
 In this section, we will parsing raw json log using fluentd json parser and output to stdout. Ok lets start with create generator log using simple python script.  
 
-```
+```python
 import datetime, sys, time, random, string
 
 def randomString(stringLength=10):
