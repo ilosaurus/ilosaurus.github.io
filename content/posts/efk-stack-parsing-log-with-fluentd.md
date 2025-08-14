@@ -29,7 +29,7 @@ Then the stack is used :
 
 To do a parsing log on fluentd, I use the parser plugin provided by fluentd, including regexp, apache2, apache_error, nginx, syslog, csv, tsv, ltsv, json, msgpack, multiline, none and third party parser grok.
 
-## Simple parse raw log using fluentd regexp parser.  
+#### Simple parse raw log using fluentd regexp parser.  
 
 Lets start running python apps to generate dummy logs.  
 
@@ -129,7 +129,7 @@ record:
 }
 ```
 
-## Simple parse raw json log using fluentd json parser.  
+#### Simple parse raw json log using fluentd json parser.  
 In this section, we will parsing raw json log using fluentd json parser and output to stdout. Ok lets start with create generator log using simple python script.  
 
 ```python

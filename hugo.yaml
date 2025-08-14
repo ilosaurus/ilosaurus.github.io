@@ -63,7 +63,7 @@ params:
 
   editPost:
     URL: "https://github.com/ilosaurus/ilosaurus.github.io/tree/main/content"
-    Text: "Sarankan Perubahan"
+    Text: "Suggest?"
     appendFilePath: true
 
   fuseOpts:
