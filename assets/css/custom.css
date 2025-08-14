@@ -11,3 +11,9 @@
     padding-left: 0;
     padding-right: 0;
 }
+
+/* Menghilangkan batas lebar 600px pada home-info dan first-entry */
+.home-info,
+.first-entry {
+    max-width: none;
+}

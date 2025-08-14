@@ -29,6 +29,7 @@ params:
   author: "ilosaurus"
   copyright: "© 2025 ilosaurus's Blog" # Teks copyright kustom
   DateFormat: "January 2, 2006"
+  customCSS: ["css/custom.css"]
   defaultTheme: "light"
   disableThemeToggle: false
 
