@@ -66,7 +66,8 @@ enabled=1
 autorefresh=1
 type=rpm-md
 EOF
-
+```
+```bash
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 yum clean all
 yum makecache
@@ -256,10 +257,12 @@ systemctl status nginx
 
 ![Kibana Dashboard](/images/kibana.png "Kibana Dashboard")
 
-### `Next chapter :`
+---  
 
-### `Introduction, Install & parsing simple log on fluentd`
+  
 
-### `Parsing Apps Logs from Docker Container`
 
-### `EFK Stack Integration with Kubernetes CLuster`
+#### `Next chapter :`
+#### `Introduction, Install & parsing simple log on fluentd`
+#### `Parsing Apps Logs from Docker Container`
+#### `EFK Stack Integration with Kubernetes CLuster`
