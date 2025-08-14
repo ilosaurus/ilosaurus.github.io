@@ -2,7 +2,8 @@ baseURL: "https://ilosaurus.github.io/"
 languageCode: "id-id"
 title: "ilosaurus's Blog"
 theme: "PaperMod"
-paginate: 5
+pagination:
+  pagerSize: 5
 
 enableRobotsTXT: true
 buildDrafts: false
