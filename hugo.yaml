@@ -15,6 +15,9 @@ minify:
   minifyOutput: true
 
 params:
+  analytics:
+    google:
+      SiteVerificationTag: "G-FZZX35S4VS"
   env: "production"
   description: "coretan coretan atau arsip catatan."
   keywords:
@@ -107,3 +110,5 @@ pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
+
+# googleAnalytics: "G-FZZX35S4VS"
