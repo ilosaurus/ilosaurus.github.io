@@ -3,6 +3,7 @@ backend:
   repo: ilosaurus/ilosaurus.github.io # Ganti dengan username/repo Anda
   branch: main # Ganti dengan branch utama Anda
   client_id: Ov23liSZve0adb0yjMEX # Client ID GitHub OAuth Anda
+  auth_base: https://github.com/login/oauth
 
 media_folder: "static/images" # Folder tempat gambar diunggah
 public_folder: "/images" # Path publik untuk gambar
