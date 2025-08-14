@@ -20,5 +20,5 @@
 
 /* Menghapus min-height pada first-entry */
 .first-entry {
-    min-height: auto;
+    min-height: auto !important;
 }
