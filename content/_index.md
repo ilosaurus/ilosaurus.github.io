@@ -1,5 +1,4 @@
 ---
-title: "Selamat Datang di Blog Ilosaurus"
+title: "Catatan/Arsip/Atauapalah"
 ---
 
-Ini adalah halaman utama dari blog teknis saya. Jelajahi tulisan-tulisan saya untuk menemukan berbagai tutorial dan wawasan seputar teknologi.
