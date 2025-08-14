@@ -14,10 +14,7 @@ minify:
   disableXML: true
   minifyOutput: true
 
-params:
-  analytics:
-    google:
-      SiteVerificationTag: "G-FZZX35S4VS"
+
   env: "production"
   description: "coretan coretan atau arsip catatan."
   keywords:
