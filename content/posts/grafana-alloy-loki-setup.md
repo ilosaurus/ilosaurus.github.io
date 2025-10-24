@@ -2,11 +2,10 @@
 title: "Logging with Grafana Alloy and Loki"
 date: 2025-10-24T10:00:00+07:00
 draft: false
-categories: ["Logging", "Observability"]
+categories: ["Logging"]
 tags: ["Grafana", "Alloy", "Loki", "Logging", "Docker"]
 description: "A step-by-step guide to setting up a complete, containerized logging stack with Grafana Alloy, Loki, and a log generator using Docker Compose."
 ---
-
 Grafana Alloy is an open-source telemetry collector from Grafana that merges the best of the Prometheus and OpenTelemetry communities. As the successor to Promtail, Alloy is now the recommended way to send log data to Grafana Loki.
 
 This tutorial provides a comprehensive, step-by-step guide to deploying a fully containerized logging stack using Docker Compose. The stack includes a log-generating application, Grafana Alloy for collection and parsing, Loki for storage, and Grafana for visualization.
